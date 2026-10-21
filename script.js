@@ -420,14 +420,23 @@ function primeTransitionModel(src) {
   else transitionImage.src = src;
 }
 
+// Computers with "reduce motion" switched on (Windows: Settings > Accessibility > Visual effects >
+// Animation effects, which is often off on work PCs, remote desktops and virtual machines) get a calm
+// version instead: no sweeping bands, flash or spinning, just the name and model fading in and out.
+// Adding ?motion=full to the page address forces the full animation.
+const reduceMotionPreferred = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  && new URLSearchParams(window.location.search).get("motion") !== "full";
+
 async function playModelTransition({ name, category = "", accent, image }, onCovered) {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!personaTransition || reduceMotion) {
+  if (!personaTransition) {
     onCovered();
     return;
   }
 
   transitionPlaying = true;
+  personaTransition.classList.toggle("is-calm", reduceMotionPreferred);
+  if (reduceMotionPreferred) transitionViewer?.removeAttribute("auto-rotate");
+  else transitionViewer?.setAttribute("auto-rotate", "");
   personaTransition.querySelector(".pt-name").textContent = name;
   personaTransition.querySelector(".pt-category").textContent = category;
   personaTransition.style.setProperty("--pt-accent", accent || "var(--yellow)");
@@ -436,14 +445,21 @@ async function playModelTransition({ name, category = "", accent, image }, onCov
 
   personaTransition.classList.add("is-active");
   await frame();
-  personaTransition.classList.add("is-covering");   // bands sweep in, name slams down
-  await wait(1000);
-  onCovered();                                       // switch pages while the screen is covered
-  await wait(120);
-  personaTransition.classList.add("is-leaving");    // bands sweep away, revealing the new page
-  await wait(760);
+  personaTransition.classList.add("is-covering");   // bands sweep in, name slams down (calm: fades in)
+  if (reduceMotionPreferred) {
+    await wait(900);
+    onCovered();
+    personaTransition.classList.remove("is-covering"); // fades back out to reveal the new page
+    await wait(350);
+  } else {
+    await wait(1000);
+    onCovered();                                       // switch pages while the screen is covered
+    await wait(120);
+    personaTransition.classList.add("is-leaving");    // bands sweep away, revealing the new page
+    await wait(760);
+  }
 
-  personaTransition.classList.remove("is-active", "is-covering", "is-leaving", "has-figure");
+  personaTransition.classList.remove("is-active", "is-covering", "is-leaving", "has-figure", "is-calm");
   transitionPlaying = false;
 }
 

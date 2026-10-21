@@ -724,6 +724,17 @@ model-viewer::part(default-progress-mask) {
   100% { opacity: 0; }
 }
 
+/* The calm version for visitors who prefer reduced motion: a plain dark card with the name and model,
+   which fades in and out. No sweeping bands, flash, slam or spinning. */
+.persona-transition.is-calm { opacity: 0; transition: opacity .3s ease; }
+.persona-transition.is-calm.is-covering { opacity: 1; }
+.persona-transition.is-calm .pt-purple,
+.persona-transition.is-calm .pt-yellow,
+.persona-transition.is-calm .pt-flash { display: none; }
+.persona-transition.is-calm .pt-black { transform: none !important; transition: none !important; }
+.persona-transition.is-calm .pt-title { animation: none !important; opacity: 1; transform: translate(-50%, -50%) rotate(-5deg); }
+.persona-transition.is-calm .pt-figure { animation: none !important; opacity: 1; transform: translateY(-50%); }
+
 @media (max-width: 700px) {
   .pt-category { margin-left: -4vmin; }
   .pt-name { font-size: 11vw; padding: .08em .35em .12em; }
