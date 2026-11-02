@@ -10,12 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" />
     <!-- The ?v= number makes browsers fetch fresh copies after an update; change it whenever these files change. -->
-    <link rel="stylesheet" href="styles.css?v=20261021-1" />
+    <link rel="stylesheet" href="styles.css?v=20261102-1" />
     <script src="Images/scythe-model.js" defer></script>
     <script src="Images/mace-model.js" defer></script>
     <script src="Images/dragon-sword-model.js" defer></script>
     <script src="Images/devil-sword-model.js" defer></script>
-    <script src="script.js?v=20261021-1" defer></script>
+    <script src="script.js?v=20261102-1" defer></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
   </head>
   <body>
@@ -53,7 +53,7 @@
               </button>
               <div class="category-items" id="weapons-list" inert>
                 <div class="model-list">
-                  <button class="model-option" type="button" data-model="Scythe" data-image="Images/scythe.glb" data-wireframe="Images/scythe.glb" aria-pressed="true">
+                  <button class="model-option" type="button" data-model="Scythe" data-info="A low-poly scythe modelled in Blender for my medieval game, where it serves as a weapon the player can use. I followed a reference I found on Pinterest for the general shape of the scythe, then added a handle designed to resemble tree bark." data-image="Images/scythe.glb" data-wireframe="Images/scythe.glb" aria-pressed="true">
                     <span>Scythe</span>
                   </button>
                   <button class="model-option" type="button" data-model="Mace" data-image="Images/mace.glb" data-wireframe="Images/mace.glb" aria-pressed="false">
@@ -103,6 +103,8 @@
                 </ul>
               </aside>
               <button class="detail-back" type="button">Back to models</button>
+              <!-- About the model. Its text comes from the model's data-info on the page 2 menu; models without one show no box. -->
+              <p class="detail-info" hidden></p>
             </div>
             <div class="detail-stage">
               <model-viewer class="detail-model" src="Images/scythe.glb" alt="Scythe model" loading="eager" camera-controls camera-orbit="0deg 75deg 135%" min-camera-orbit="auto auto 20%" max-camera-orbit="auto auto 140%" disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" interaction-prompt-threshold="700" shadow-intensity="1"></model-viewer>

@@ -17,6 +17,7 @@ const angleViews = document.querySelectorAll(".view-angle");
 const viewModelImage = document.querySelector(".view-model-image");
 const viewWireframeImage = document.querySelector(".view-wireframe-image");
 const detailBack = document.querySelector(".detail-back");
+const detailInfo = document.querySelector(".detail-info");
 const wireframeToggle = document.querySelector(".wireframe-toggle");
 const hero = document.querySelector(".hero");
 const isModelFile = (src) => /\.(glb|gltf)$/i.test(src);
@@ -323,6 +324,10 @@ function selectModel(option, index) {
 
   selectedIndex = index;
   detailTitle.textContent = option.dataset.model;
+  if (detailInfo) {
+    detailInfo.textContent = option.dataset.info ?? "";
+    detailInfo.hidden = !option.dataset.info;
+  }
   const is3D = isModelFile(option.dataset.image);
   if (is3D) {
     setModelSrc(detailModel, option.dataset.image);

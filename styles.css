@@ -202,6 +202,27 @@ body.is-detail-active { overflow: hidden; }
   padding: 11px 15px;
 }
 
+/* About-the-model box under the Back button (text comes from the model's data-info). */
+.detail-info {
+  background: #211e22;
+  border-radius: 14px;
+  color: #e6dcea;
+  font-size: .9rem;
+  line-height: 1.55;
+  margin: 22px 0 0;
+  max-width: 320px;
+  padding: 16px 20px 18px;
+}
+
+.detail-info[hidden] { display: none; }
+
+/* On short screens (laptops, small windows) the column is narrow and tall text would run off the bottom, so
+   the box gets a smaller font and tighter padding. */
+@media (min-width: 701px) and (max-height: 760px) {
+  .detail-copy { padding-right: clamp(14px, 2.4vw, 40px); }
+  .detail-info { font-size: .8rem; line-height: 1.45; margin-top: 16px; padding: 12px 14px 14px; }
+}
+
 .detail-stage {
   align-items: center;
   display: flex;
@@ -777,6 +798,7 @@ model-viewer::part(default-progress-mask) {
   .detail-back { align-self: start; grid-column: 1; grid-row: 3; justify-self: start; margin-top: 0; }
   .programs-used { align-self: start; grid-column: 2; grid-row: 3; margin-top: 0; padding: 12px 14px 13px; position: static; }
   .programs-used-title { font-size: .6rem; margin-bottom: 7px; }
+  .detail-info { font-size: .78rem; grid-column: 1 / -1; grid-row: 4; line-height: 1.45; margin-top: 14px; max-width: none; padding: 12px 14px 13px; }
   .programs-used ul { font-size: .9rem; gap: 4px; }
   .detail-copy h2 { font-size: 4.5rem; }
   .detail-stage { min-height: 0; }
