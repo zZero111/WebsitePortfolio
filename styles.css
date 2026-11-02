@@ -15,7 +15,7 @@ body.is-detail-active { overflow: hidden; }
 
 .site-header {
   left: 0;
-  padding: 24px 4vw;
+  padding: 14px 2.6vw;
   pointer-events: none; /* only the logo itself is clickable, not the whole strip across the top */
   position: fixed;
   right: 0;
@@ -27,7 +27,7 @@ body.is-detail-active { overflow: hidden; }
 
 .wordmark img {
   display: block;
-  height: clamp(48px, 7vh, 64px);
+  height: clamp(42px, 5.8vh, 52px);
   width: auto;
 }
 
@@ -443,7 +443,7 @@ model-viewer::part(default-progress-mask) {
 .model-menu {
   min-height: 0;
   overflow-y: auto;
-  padding: clamp(96px, 12vh, 150px) clamp(28px, 6vw, 80px) 40px;
+  padding: clamp(84px, 10.5vh, 140px) clamp(28px, 6vw, 80px) 40px;
 }
 
 .menu-kicker, .stage-number, .menu-hint {
@@ -781,7 +781,7 @@ model-viewer::part(default-progress-mask) {
 }
 
 @media (max-width: 700px) {
-  .site-header { padding: 20px 5vw; }
+  .site-header { padding: 12px 4vw; }
   .hero { grid-template-columns: 1fr; padding: 90px 8vw 45px; }
   .hero-art { align-self: end; height: 53%; min-height: 250px; order: 2; }
   .hero-art img { transform: translateX(-8%); }
