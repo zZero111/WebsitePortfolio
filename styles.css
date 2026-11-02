@@ -16,21 +16,20 @@ body.is-detail-active { overflow: hidden; }
 .site-header {
   left: 0;
   padding: 24px 4vw;
+  pointer-events: none; /* only the logo itself is clickable, not the whole strip across the top */
   position: fixed;
   right: 0;
   top: 0;
   z-index: 2;
 }
 
-.wordmark {
-  color: var(--yellow);
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0;
-  text-decoration: none;
-}
+.wordmark { display: block; line-height: 0; pointer-events: auto; }
 
-.wordmark span { color: #fff; }
+.wordmark img {
+  display: block;
+  height: clamp(48px, 7vh, 64px);
+  width: auto;
+}
 
 .hero {
   align-items: center;
@@ -444,7 +443,7 @@ model-viewer::part(default-progress-mask) {
 .model-menu {
   min-height: 0;
   overflow-y: auto;
-  padding: clamp(70px, 9vh, 130px) clamp(28px, 6vw, 80px) 40px;
+  padding: clamp(96px, 12vh, 150px) clamp(28px, 6vw, 80px) 40px;
 }
 
 .menu-kicker, .stage-number, .menu-hint {
