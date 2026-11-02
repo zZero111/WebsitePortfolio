@@ -215,6 +215,8 @@ body.is-detail-active { overflow: hidden; }
 }
 
 .detail-info[hidden] { display: none; }
+.detail-info-text { margin: 0; }
+.detail-info-toggle { display: none; }
 
 /* On short screens (laptops, small windows) the column is narrow and tall text would run off the bottom, so
    the box gets a smaller font and tighter padding. */
@@ -816,7 +818,24 @@ model-viewer::part(default-progress-mask) {
   .model-stats dt { font-size: .6rem; }
   .model-stats dd { font-size: 1rem; }
   .programs-used-title { font-size: .6rem; margin-bottom: 7px; }
-  .detail-info { font-size: .88rem; grid-column: 1 / -1; grid-row: 4; line-height: 1.5; margin-top: 14px; max-width: none; padding: 14px 16px 16px; }
+  .detail-info { font-size: .88rem; grid-column: 1 / -1; grid-row: 4; line-height: 1.5; margin-top: 14px; max-width: none; padding: 12px 16px; }
+  /* Folded by default on phones: just an "About this model" bar that opens the text. */
+  .detail-info-toggle {
+    align-items: center;
+    background: none;
+    border: 0;
+    color: var(--yellow);
+    cursor: pointer;
+    display: flex;
+    font: inherit;
+    justify-content: space-between;
+    padding: 0;
+    width: 100%;
+  }
+  .detail-info-toggle::after { content: "+"; font-size: 1.2rem; line-height: 1; }
+  .detail-info.is-open .detail-info-toggle::after { content: "\2212"; }
+  .detail-info-text { display: none; margin-top: 10px; }
+  .detail-info.is-open .detail-info-text { display: block; }
   .programs-used ul { font-size: .9rem; gap: 4px; }
   .detail-copy h2 { font-size: 4.5rem; }
   .detail-stage { min-height: 0; }

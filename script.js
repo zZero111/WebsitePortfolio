@@ -18,6 +18,8 @@ const viewModelImage = document.querySelector(".view-model-image");
 const viewWireframeImage = document.querySelector(".view-wireframe-image");
 const detailBack = document.querySelector(".detail-back");
 const detailInfo = document.querySelector(".detail-info");
+const detailInfoText = document.querySelector(".detail-info-text");
+const detailInfoToggle = document.querySelector(".detail-info-toggle");
 const modelStats = document.querySelector(".model-stats");
 const modelCounts = new Map(); // vertex and triangle counts per model file (see countModelGeometry)
 const wireframeToggle = document.querySelector(".wireframe-toggle");
@@ -329,8 +331,9 @@ function selectModel(option, index) {
   detailModel.dataset.statsFor = option.dataset.image;
   showModelStats(option.dataset.image);
   if (detailInfo) {
-    detailInfo.textContent = option.dataset.info ?? "";
+    detailInfoText.textContent = option.dataset.info ?? "";
     detailInfo.hidden = !option.dataset.info;
+    setDetailInfoOpen(false); // on phones the text starts folded away so the model keeps its room
   }
   const is3D = isModelFile(option.dataset.image);
   if (is3D) {
@@ -471,6 +474,15 @@ async function playModelTransition({ name, category = "", accent, image }, onCov
   personaTransition.classList.remove("is-active", "is-covering", "is-leaving", "has-figure", "is-calm");
   transitionPlaying = false;
 }
+
+// On phones the about text sits behind an "About this model" toggle, as the open box would otherwise
+// leave the model very little room; on larger screens the text is always shown.
+function setDetailInfoOpen(open) {
+  detailInfo?.classList.toggle("is-open", open);
+  detailInfoToggle?.setAttribute("aria-expanded", String(open));
+}
+
+detailInfoToggle?.addEventListener("click", () => setDetailInfoOpen(!detailInfo.classList.contains("is-open")));
 
 function openDetail() {
   pageScrollLocked = false;
