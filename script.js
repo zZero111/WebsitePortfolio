@@ -18,6 +18,8 @@ const viewModelImage = document.querySelector(".view-model-image");
 const viewWireframeImage = document.querySelector(".view-wireframe-image");
 const detailBack = document.querySelector(".detail-back");
 const detailInfo = document.querySelector(".detail-info");
+const modelStats = document.querySelector(".model-stats");
+const modelCounts = new Map(); // vertex and triangle counts per model file (see countModelGeometry)
 const wireframeToggle = document.querySelector(".wireframe-toggle");
 const hero = document.querySelector(".hero");
 const isModelFile = (src) => /\.(glb|gltf)$/i.test(src);
@@ -324,6 +326,8 @@ function selectModel(option, index) {
 
   selectedIndex = index;
   detailTitle.textContent = option.dataset.model;
+  detailModel.dataset.statsFor = option.dataset.image;
+  showModelStats(option.dataset.image);
   if (detailInfo) {
     detailInfo.textContent = option.dataset.info ?? "";
     detailInfo.hidden = !option.dataset.info;
@@ -630,6 +634,45 @@ async function captureModelFraming() {
 
 detailModel?.addEventListener("load", captureModelFraming);
 if (detailModel?.loaded) captureModelFraming();
+
+// Vertex and triangle counts, read from the loaded model itself so any model added later gets them too.
+// Vertices that share a position are counted once (the file format splits them wherever the shading or
+// material changes), which matches what Blender's statistics show. Cached per model file.
+function countModelGeometry(viewer) {
+  const scene = getModelScene(viewer);
+  if (!scene) return null;
+  let triangles = 0;
+  const positions = new Set();
+  scene.traverse((object) => {
+    // Only the model's own parts, not helper shapes model-viewer adds or the cast shadows.
+    if (!object.isMesh || object.userData.isCastShadow || !object.material?.isMeshStandardMaterial) return;
+    const position = object.geometry.attributes.position;
+    triangles += (object.geometry.index?.count ?? position.count) / 3;
+    const owner = object.parent?.uuid ?? "";
+    for (let i = 0; i < position.count; i += 1) {
+      positions.add(`${owner}|${position.getX(i).toFixed(4)},${position.getY(i).toFixed(4)},${position.getZ(i).toFixed(4)}`);
+    }
+  });
+  return positions.size ? { vertices: positions.size, triangles } : null;
+}
+
+function showModelStats(src) {
+  if (!modelStats) return;
+  const counts = modelCounts.get(src);
+  modelStats.hidden = !src || !isModelFile(src);
+  modelStats.querySelector(".stat-vertices").textContent = counts ? counts.vertices.toLocaleString("en-GB") : "–";
+  modelStats.querySelector(".stat-triangles").textContent = counts ? counts.triangles.toLocaleString("en-GB") : "–";
+}
+
+function updateModelStats() {
+  const src = detailModel.dataset.statsFor;
+  const counts = countModelGeometry(detailModel);
+  if (src && counts) modelCounts.set(src, counts);
+  showModelStats(src);
+}
+
+detailModel?.addEventListener("load", updateModelStats);
+if (detailModel?.loaded) updateModelStats();
 
 // Two-finger pinch on touch screens: fingers apart zooms in, together zooms out. One finger still
 // rotates the model and swiping up or down still changes page.

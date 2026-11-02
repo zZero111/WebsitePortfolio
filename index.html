@@ -10,12 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" />
     <!-- The ?v= number makes browsers fetch fresh copies after an update; change it whenever these files change. -->
-    <link rel="stylesheet" href="styles.css?v=20261102-1" />
+    <link rel="stylesheet" href="styles.css?v=20261102-3" />
     <script src="Images/scythe-model.js" defer></script>
     <script src="Images/mace-model.js" defer></script>
     <script src="Images/dragon-sword-model.js" defer></script>
     <script src="Images/devil-sword-model.js" defer></script>
-    <script src="script.js?v=20261102-1" defer></script>
+    <script src="script.js?v=20261102-3" defer></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
   </head>
   <body>
@@ -26,7 +26,7 @@
     <main>
       <section class="hero" id="top" aria-label="Charlie Marshall home page">
         <div class="hero-art">
-          <model-viewer src="Images/scythe.glb" alt="Scythe 3D model" tabindex="-1" loading="eager" interaction-prompt="none" shadow-intensity="1"></model-viewer>
+          <model-viewer src="Images/scythe.glb" alt="Scythe 3D model" tabindex="-1" loading="eager" interaction-prompt="none"></model-viewer>
         </div>
         <div class="hero-intro">
           <p class="hero-kicker">3D artist · modeller · designer</p>
@@ -94,20 +94,27 @@
             <div class="detail-copy">
               <p class="menu-kicker">Rotatable model</p>
               <h2 id="detail-title">Scythe</h2>
-              <aside class="programs-used" aria-labelledby="programs-title">
-                <p class="programs-used-title" id="programs-title">Programs used</p>
-                <ul>
-                  <li>Blender</li>
-                  <li>Substance Painter</li>
-                  <li>Photoshop</li>
-                </ul>
-              </aside>
+              <div class="detail-meta">
+                <aside class="programs-used" aria-labelledby="programs-title">
+                  <p class="programs-used-title" id="programs-title">Programs used</p>
+                  <ul>
+                    <li>Blender</li>
+                    <li>Substance Painter</li>
+                    <li>Photoshop</li>
+                  </ul>
+                </aside>
+                <!-- Counted from the loaded model itself (see updateModelStats in script.js), so new models need nothing extra. -->
+                <dl class="model-stats" hidden>
+                  <div><dt>Vertices</dt><dd class="stat-vertices">–</dd></div>
+                  <div><dt>Triangles</dt><dd class="stat-triangles">–</dd></div>
+                </dl>
+              </div>
               <button class="detail-back" type="button">Back to models</button>
               <!-- About the model. Its text comes from the model's data-info on the page 2 menu; models without one show no box. -->
               <p class="detail-info" hidden></p>
             </div>
             <div class="detail-stage">
-              <model-viewer class="detail-model" src="Images/scythe.glb" alt="Scythe model" loading="eager" camera-controls camera-orbit="0deg 75deg 135%" min-camera-orbit="auto auto 20%" max-camera-orbit="auto auto 140%" disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" interaction-prompt-threshold="700" shadow-intensity="1"></model-viewer>
+              <model-viewer class="detail-model" src="Images/scythe.glb" alt="Scythe model" loading="eager" camera-controls camera-orbit="0deg 75deg 135%" min-camera-orbit="auto auto 20%" max-camera-orbit="auto auto 140%" disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none" interaction-prompt-threshold="700"></model-viewer>
               <img class="detail-model-image is-hidden" alt="" draggable="false" />
               <button class="wireframe-toggle" type="button" aria-pressed="false">Wireframe</button>
             </div>
@@ -119,18 +126,18 @@
             <div class="views-grid">
               <figure class="model-view model-view-front">
                 <div class="angle-grid">
-                  <model-viewer class="view-angle angle-top" src="Images/scythe.glb" alt="Scythe front three-quarter view from the left" data-label="front three-quarter view from the left" camera-orbit="-45deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none" shadow-intensity="1"></model-viewer>
-                  <model-viewer class="view-angle angle-bottom" src="Images/scythe.glb" alt="Scythe front three-quarter view from the right" data-label="front three-quarter view from the right" camera-orbit="45deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none" shadow-intensity="1"></model-viewer>
-                  <model-viewer class="view-angle angle-main" src="Images/scythe.glb" alt="Scythe front view" data-label="front view" camera-orbit="0deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none" shadow-intensity="1"></model-viewer>
+                  <model-viewer class="view-angle angle-top" src="Images/scythe.glb" alt="Scythe front three-quarter view from the left" data-label="front three-quarter view from the left" camera-orbit="-45deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none"></model-viewer>
+                  <model-viewer class="view-angle angle-bottom" src="Images/scythe.glb" alt="Scythe front three-quarter view from the right" data-label="front three-quarter view from the right" camera-orbit="45deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none"></model-viewer>
+                  <model-viewer class="view-angle angle-main" src="Images/scythe.glb" alt="Scythe front view" data-label="front view" camera-orbit="0deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none"></model-viewer>
                 </div>
                 <img class="view-model-image is-hidden" alt="" />
                 <figcaption>Front</figcaption>
               </figure>
               <figure class="model-view model-view-back">
                 <div class="angle-grid">
-                  <model-viewer class="view-angle angle-top" src="Images/scythe.glb" alt="Scythe back three-quarter view from the left" data-label="back three-quarter view from the left" camera-orbit="225deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none" shadow-intensity="1"></model-viewer>
-                  <model-viewer class="view-angle angle-bottom" src="Images/scythe.glb" alt="Scythe back three-quarter view from the right" data-label="back three-quarter view from the right" camera-orbit="135deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none" shadow-intensity="1"></model-viewer>
-                  <model-viewer class="view-angle angle-main" src="Images/scythe.glb" alt="Scythe back view" data-label="back view" camera-orbit="180deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none" shadow-intensity="1"></model-viewer>
+                  <model-viewer class="view-angle angle-top" src="Images/scythe.glb" alt="Scythe back three-quarter view from the left" data-label="back three-quarter view from the left" camera-orbit="225deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none"></model-viewer>
+                  <model-viewer class="view-angle angle-bottom" src="Images/scythe.glb" alt="Scythe back three-quarter view from the right" data-label="back three-quarter view from the right" camera-orbit="135deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none"></model-viewer>
+                  <model-viewer class="view-angle angle-main" src="Images/scythe.glb" alt="Scythe back view" data-label="back view" camera-orbit="180deg 75deg 105%" tabindex="-1" loading="eager" interaction-prompt="none"></model-viewer>
                 </div>
                 <img class="view-wireframe-image is-hidden" alt="" />
                 <figcaption>Back</figcaption>

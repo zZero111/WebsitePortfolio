@@ -175,14 +175,14 @@ body.is-detail-active { overflow: hidden; }
   background: var(--purple);
   display: grid;
   position: relative;
-  grid-template-columns: minmax(240px, 28%) 1fr;
+  grid-template-columns: minmax(300px, 34%) 1fr;
   height: 100svh;
   min-height: 0;
 }
 
 .detail-copy {
   align-self: center;
-  padding: 40px clamp(28px, 6vw, 80px);
+  padding: 40px clamp(20px, 3vw, 48px) 40px clamp(28px, 5vw, 80px);
 }
 
 .detail-copy h2 {
@@ -206,12 +206,12 @@ body.is-detail-active { overflow: hidden; }
 .detail-info {
   background: #211e22;
   border-radius: 14px;
-  color: #e6dcea;
-  font-size: .9rem;
-  line-height: 1.55;
-  margin: 22px 0 0;
-  max-width: 320px;
-  padding: 16px 20px 18px;
+  color: #f1e9f5;
+  font-size: clamp(1rem, 1.1vw, 1.3rem);
+  line-height: 1.6;
+  margin: 26px 0 0;
+  max-width: 540px;
+  padding: 24px 28px 28px;
 }
 
 .detail-info[hidden] { display: none; }
@@ -220,7 +220,7 @@ body.is-detail-active { overflow: hidden; }
    the box gets a smaller font and tighter padding. */
 @media (min-width: 701px) and (max-height: 760px) {
   .detail-copy { padding-right: clamp(14px, 2.4vw, 40px); }
-  .detail-info { font-size: .8rem; line-height: 1.45; margin-top: 16px; padding: 12px 14px 14px; }
+  .detail-info { font-size: .88rem; line-height: 1.5; margin-top: 16px; padding: 14px 18px 16px; }
 }
 
 .detail-stage {
@@ -320,16 +320,29 @@ model-viewer::part(default-progress-mask) {
   max-width: 1400px;
 }
 
-.programs-used {
-  background: #211e22;
-  border-radius: 14px;
-  color: var(--yellow);
-  padding: 16px 22px 18px;
+/* Top right of page 3: the programs box with the model's vertex and triangle counts under it. */
+.detail-meta {
+  display: grid;
+  gap: 16px;
   position: absolute;
   right: 4vw;
   top: 28px;
   z-index: 2;
 }
+
+.programs-used {
+  background: #211e22;
+  border-radius: 14px;
+  color: var(--yellow);
+  padding: 16px 22px 18px;
+}
+
+/* Plain text (no box): a small label with its number beside it. */
+.model-stats { display: grid; gap: 6px; margin: 0; padding: 0 4px; }
+.model-stats[hidden] { display: none; }
+.model-stats div { align-items: baseline; display: flex; gap: 22px; justify-content: space-between; }
+.model-stats dt { color: #d3c8dc; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+.model-stats dd { color: var(--yellow); font-size: 1.2rem; margin: 0; }
 
 .programs-used-title {
   color: #b9b0bd;
@@ -796,9 +809,14 @@ model-viewer::part(default-progress-mask) {
   .detail-copy { column-gap: 16px; display: grid; grid-template-columns: 1fr auto; padding: 78px 10vw 14px; }
   .detail-copy > .menu-kicker, .detail-copy h2 { grid-column: 1 / -1; }
   .detail-back { align-self: start; grid-column: 1; grid-row: 3; justify-self: start; margin-top: 0; }
-  .programs-used { align-self: start; grid-column: 2; grid-row: 3; margin-top: 0; padding: 12px 14px 13px; position: static; }
+  .detail-meta { align-self: start; gap: 10px; grid-column: 2; grid-row: 3; position: static; }
+  .programs-used { padding: 12px 14px 13px; }
+  .model-stats { padding: 0 2px; }
+  .model-stats div { gap: 14px; }
+  .model-stats dt { font-size: .6rem; }
+  .model-stats dd { font-size: 1rem; }
   .programs-used-title { font-size: .6rem; margin-bottom: 7px; }
-  .detail-info { font-size: .78rem; grid-column: 1 / -1; grid-row: 4; line-height: 1.45; margin-top: 14px; max-width: none; padding: 12px 14px 13px; }
+  .detail-info { font-size: .88rem; grid-column: 1 / -1; grid-row: 4; line-height: 1.5; margin-top: 14px; max-width: none; padding: 14px 16px 16px; }
   .programs-used ul { font-size: .9rem; gap: 4px; }
   .detail-copy h2 { font-size: 4.5rem; }
   .detail-stage { min-height: 0; }
