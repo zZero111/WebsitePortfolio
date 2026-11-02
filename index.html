@@ -11,12 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" />
     <!-- The ?v= number makes browsers fetch fresh copies after an update; change it whenever these files change. -->
-    <link rel="stylesheet" href="styles.css?v=20261102-9" />
+    <link rel="stylesheet" href="styles.css?v=20261103-1" />
     <script src="Images/scythe-model.js" defer></script>
     <script src="Images/mace-model.js" defer></script>
     <script src="Images/dragon-sword-model.js" defer></script>
     <script src="Images/devil-sword-model.js" defer></script>
-    <script src="script.js?v=20261102-9" defer></script>
+    <script src="script.js?v=20261103-1" defer></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
   </head>
   <body>
@@ -148,10 +148,13 @@
               </figure>
             </div>
           </section>
-          <section class="model-materials" id="model-materials" aria-label="Page 05 texture maps">
-            <img class="materials-image" src="Images/Uvs.png" alt="Texture maps for a stylized tree environment" />
-          </section>
         </div>
+        <!-- Slides up from the bottom once the visitor scrolls down to the model details (see updateContactBar). -->
+        <footer class="contact-bar" aria-label="Contact information" inert>
+          <p class="contact-title">Get in touch</p>
+          <a class="contact-link" href="mailto:CAMarshall07@outlook.com"><span>Email</span>CAMarshall07@outlook.com</a>
+          <a class="contact-link" href="tel:07305432548"><span>Phone</span>07305 432548</a>
+        </footer>
       </section>
     </main>
     <!-- Full-screen wipe played when a model is opened (see playModelTransition in script.js). -->

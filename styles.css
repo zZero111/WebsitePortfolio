@@ -295,26 +295,49 @@ model-viewer::part(default-progress-mask) {
   padding: clamp(70px, 9vw, 140px) clamp(20px, 4vw, 64px) clamp(90px, 10vw, 150px);
 }
 
-.model-materials {
+/* Contact bar: fixed to the bottom of the screen, hidden until the model details page is reached. */
+.contact-bar {
   align-items: center;
-  background: var(--purple);
+  background: #211e22;
+  border-top: 1px solid rgba(255, 223, 62, .4);
+  bottom: 0;
   display: flex;
-  height: 100svh;
-  justify-content: center;
-  min-height: 100svh;
-  overflow: hidden;
-  padding: clamp(30px, 5vw, 72px);
-  position: relative;
+  flex-wrap: wrap;
+  gap: 10px clamp(24px, 4vw, 64px);
+  left: 0;
+  padding: 16px clamp(20px, 4vw, 64px);
+  position: fixed;
+  right: 0;
+  transform: translateY(101%);
+  transition: transform .55s cubic-bezier(.22, .8, .3, 1);
+  z-index: 12;
 }
 
-.materials-image {
-  display: block;
-  height: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-  width: 100%;
+.contact-bar.is-visible { transform: none; }
+
+.contact-title {
+  color: var(--yellow);
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  margin: 0 auto 0 0;
 }
+
+.contact-link {
+  align-items: baseline;
+  color: #fff;
+  display: inline-flex;
+  font-size: clamp(.95rem, 1.2vw, 1.15rem);
+  gap: 12px;
+  text-decoration: none;
+}
+
+.contact-link span {
+  color: #b9b0bd;
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.contact-link:hover, .contact-link:focus-visible { color: var(--yellow); text-decoration: underline; text-underline-offset: 4px; }
 
 .views-heading {
   margin: 0 auto 38px;
@@ -840,13 +863,15 @@ model-viewer::part(default-progress-mask) {
   .detail-stage { min-height: 0; }
   .detail-model-image { max-height: 68%; max-width: 82%; }
   .wireframe-toggle { bottom: 18px; right: 8vw; }
-  .model-views { height: auto; min-height: 100svh; padding: 70px 5vw 90px; }
+  .model-views { height: auto; min-height: 100svh; padding: 70px 5vw 150px; }
   .views-grid { grid-template-columns: 1fr; }
   .model-view { min-height: 78vw; }
-  .model-materials { min-height: 100svh; padding: 28px 5vw; }
-  .materials-image { height: auto; max-height: 100%; }
+  .contact-bar { gap: 6px 24px; padding: 12px 5vw 14px; }
+  .contact-title { flex-basis: 100%; margin: 0; }
+  .contact-link { flex: 1 1 auto; font-size: .9rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .contact-bar { transition: none; }
 }

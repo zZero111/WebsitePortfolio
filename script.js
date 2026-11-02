@@ -7,7 +7,7 @@ const stageNumber = document.querySelector(".stage-number");
 const modelSelection = document.querySelector(".model-selection");
 const modelDetail = document.querySelector(".model-detail");
 const modelViews = document.querySelector(".model-views");
-const modelMaterials = document.querySelector(".model-materials");
+const contactBar = document.querySelector(".contact-bar");
 const detailTitle = document.querySelector("#detail-title");
 const detailModel = document.querySelector(".detail-model");
 const detailModelImage = document.querySelector(".detail-model-image");
@@ -484,11 +484,23 @@ function setDetailInfoOpen(open) {
 
 detailInfoToggle?.addEventListener("click", () => setDetailInfoOpen(!detailInfo.classList.contains("is-open")));
 
+// The contact bar slides up once the visitor has scrolled most of the way down to the model details page,
+// and is left out of the keyboard order while it is hidden.
+function updateContactBar() {
+  if (!contactBar || !modelViews) return;
+  const show = document.body.classList.contains("is-detail-active") && modelDetail.scrollTop > modelViews.offsetTop * 0.55;
+  contactBar.classList.toggle("is-visible", show);
+  contactBar.inert = !show;
+}
+
+modelDetail?.addEventListener("scroll", updateContactBar, { passive: true });
+
 function openDetail() {
   pageScrollLocked = false;
   modelDetail.scrollTop = 0;
   modelDetail.inert = false;
   document.body.classList.add("is-detail-active");
+  updateContactBar();
   detailBack?.focus({ preventScroll: true });
   showRotateHint();
 }
@@ -508,6 +520,7 @@ function hideRotateHint() {
 function closeDetail() {
   hideRotateHint();
   document.body.classList.remove("is-detail-active");
+  updateContactBar();
   modelDetail.inert = true;
   modelSelection?.scrollIntoView({ behavior: "smooth", block: "start" });
   modelOptions[selectedIndex]?.focus({ preventScroll: true });
@@ -755,7 +768,6 @@ modelDetail?.addEventListener("wheel", (event) => {
   if (pageScrollLocked || !newGesture || Math.abs(event.deltaY) < 8 || !modelViews) return;
 
   const pageStops = [0, modelViews.offsetTop];
-  if (modelMaterials) pageStops.push(modelMaterials.offsetTop);
   const currentStop = pageStops.reduce((closest, stop, index) => {
     return Math.abs(modelDetail.scrollTop - stop) < Math.abs(modelDetail.scrollTop - pageStops[closest]) ? index : closest;
   }, 0);
